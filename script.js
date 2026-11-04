@@ -5,7 +5,7 @@ function createPlan() {
     const grade = document.getElementById("grade").value;
     const examDate = document.getElementById("examDate").value;
     const studyTime = Number(document.getElementById("studyTime").value);
-
+const major = document.getElementById("major").value;
     // 2. 선택한 과목 가져오기
     const checkboxes = document.querySelectorAll(
         'input[name="subject"]:checked'
@@ -63,6 +63,7 @@ function createPlan() {
         <h3>나의 공부 계획표</h3>
 
         <p><strong>학년:</strong> ${grade}</p>
+        <p><strong>희망 학과:</strong> ${major}</p>
         <p><strong>시험 날짜:</strong> ${examDate}</p>
         <p><strong>시험까지:</strong> ${remainingDays}일</p>
         <p><strong>하루 공부 시간:</strong> ${studyTime}시간</p>
