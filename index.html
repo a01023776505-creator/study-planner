@@ -44,32 +44,44 @@
                    placeholder="예: 4시간" min="1" max="24">
 
             <h2>공부할 과목</h2>
+<h3>공부할 과목을 선택하세요</h3>
 
-            <label>
-                <input type="checkbox" name="subject" value="국어">
-                국어
-            </label>
+<!-- 국어 -->
+<h4>국어</h4>
+<label><input type="checkbox" name="subject" value="문학"> 문학</label>
+<label><input type="checkbox" name="subject" value="독서와 작문"> 독서와 작문</label>
+<label><input type="checkbox" name="subject" value="화법과 언어"> 화법과 언어</label>
 
-            <label>
-                <input type="checkbox" name="subject" value="영어">
-                영어
-            </label>
+<!-- 영어 -->
+<h4>영어</h4>
+<label><input type="checkbox" name="subject" value="단어"> 단어</label>
+<label><input type="checkbox" name="subject" value="문법"> 문법</label>
+<label><input type="checkbox" name="subject" value="독해"> 독해</label>
+<label><input type="checkbox" name="subject" value="듣기"> 듣기</label>
 
-            <label>
-                <input type="checkbox" name="subject" value="수학">
-                수학
-            </label>
+<!-- 수학 -->
+<h4>수학</h4>
+<label><input type="checkbox" name="subject" value="개념 학습"> 개념 학습</label>
+<label><input type="checkbox" name="subject" value="유형 문제"> 유형 문제</label>
+<label><input type="checkbox" name="subject" value="심화 문제"> 심화 문제</label>
+<label><input type="checkbox" name="subject" value="오답 정리"> 오답 정리</label>
 
-            <label>
-                <input type="checkbox" name="subject" value="과학">
-                과학
-            </label>
+<!-- 과학 -->
+<h4>과학</h4>
+<label><input type="checkbox" name="subject" value="물리학"> 물리학</label>
+<label><input type="checkbox" name="subject" value="화학"> 화학</label>
+<label><input type="checkbox" name="subject" value="생명과학"> 생명과학</label>
+<label><input type="checkbox" name="subject" value="지구과학"> 지구과학</label>
 
-            <label>
-                <input type="checkbox" name="subject" value="사회">
-                사회
-            </label>
-
+<!-- 사회 -->
+<h4>사회</h4>
+<label><input type="checkbox" name="subject" value="사회와 문화"> 사회와 문화</label>
+<label><input type="checkbox" name="subject" value="윤리와 사상"> 윤리와 사상</label>
+<label><input type="checkbox" name="subject" value="한국사"> 한국사</label>
+<label><input type="checkbox" name="subject" value="세계사"> 세계사</label>
+<label><input type="checkbox" name="subject" value="정치"> 정치</label>
+<label><input type="checkbox" name="subject" value="법과 사회"> 법과 사회</label>
+<label><input type="checkbox" name="subject" value="경제"> 경제</label>
             <button type="button" onclick="createPlan()">
                 공부 계획표 생성하기
             </button>
