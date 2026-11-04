@@ -1,12 +1,10 @@
-
 function createPlan() {
-
-    // 1. 학생이 입력한 정보 가져오기
     const grade = document.getElementById("grade").value;
     const examDate = document.getElementById("examDate").value;
     const studyTime = Number(document.getElementById("studyTime").value);
-const major = document.getElementById("major").value;
-    // 2. 선택한 과목 가져오기
+    const majorInput = document.getElementById("major");
+    const major = majorInput ? majorInput.value.trim() : "";
+
     const checkboxes = document.querySelectorAll(
         'input[name="subject"]:checked'
     );
@@ -17,9 +15,9 @@ const major = document.getElementById("major").value;
 
     const result = document.getElementById("result");
 
-    // 3. 입력 정보 확인하기
+    // 입력 확인
     if (examDate === "") {
-        result.textContent = "시험 날짜를 입력해 주세요.";
+        result.textContent = "시험 날짜를 선택해 주세요.";
         return;
     }
 
@@ -33,9 +31,8 @@ const major = document.getElementById("major").value;
         return;
     }
 
-    // 4. 시험까지 남은 날짜 계산하기
+    // 날짜 계산
     const today = new Date();
-
     today.setHours(0, 0, 0, 0);
 
     const exam = new Date(examDate + "T00:00:00");
@@ -49,79 +46,156 @@ const major = document.getElementById("major").value;
         return;
     }
 
-    // 5. 과목별 공부 시간 나누기
-    const totalMinutes = studyTime * 60;
+    // 하루 공부 시간(분)
+    const dailyMinutes = Math.round(studyTime * 60);
 
-    const baseMinutes = Math.floor(
-        totalMinutes / subjects.length
-    );
+    // 과목별 시간 배분
+    function divideTime(selectedSubjects, totalMinutes) {
+        const base = Math.floor(
+            totalMinutes / selectedSubjects.length
+        );
 
-    const extraMinutes = totalMinutes % subjects.length;
+        const extra = totalMinutes % selectedSubjects.length;
 
-    // 6. 계획표 만들기
-    let plan = `
-        <h3>나의 공부 계획표</h3>
+        return selectedSubjects.map((subject, index) => ({
+            subject: subject,
+            minutes: base + (index < extra ? 1 : 0)
+        }));
+    }
 
-        <p><strong>학년:</strong> ${grade}</p>
-        <p><strong>희망 학과:</strong> ${major}</p>
-        <p><strong>시험 날짜:</strong> ${examDate}</p>
-        <p><strong>시험까지:</strong> ${remainingDays}일</p>
-        <p><strong>하루 공부 시간:</strong> ${studyTime}시간</p>
-
-        <table style="
-            width:100%;
-            border-collapse:collapse;
-            text-align:center;
-        ">
-            <tr style="background-color:#4169e1;color:white;">
-                <th style="padding:10px;">과목</th>
-                <th style="padding:10px;">공부 시간</th>
-            </tr>
-    `;
-
-    subjects.forEach((subject, index) => {
-
-        const minutes = baseMinutes +
-            (index < extraMinutes ? 1 : 0);
-
+    // 분을 시간과 분으로 표시
+    function formatTime(minutes) {
         const hours = Math.floor(minutes / 60);
         const mins = minutes % 60;
 
-        let timeText = "";
+        if (hours > 0 && mins > 0) {
+            return `${hours}시간 ${mins}분`;
+        }
 
         if (hours > 0) {
-            timeText += hours + "시간 ";
+            return `${hours}시간`;
         }
 
-        if (mins > 0) {
-            timeText += mins + "분";
+        return `${mins}분`;
+    }
+
+    // 사용자 입력을 HTML에 안전하게 표시
+    function escapeHTML(text) {
+        return String(text).replace(/[&<>"']/g, character => {
+            const entities = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            };
+
+            return entities[character];
+        });
+    }
+
+    // 날짜 표시
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // 계획표 시작
+    let plan = `
+        <h2>시험 대비 학습 스케줄</h2>
+
+        <p><strong>학년:</strong> ${escapeHTML(grade)}</p>
+        ${major ? `<p><strong>희망 학과:</strong> ${escapeHTML(major)}</p>` : ""}
+        <p><strong>시험 날짜:</strong> ${examDate}</p>
+        <p><strong>시험까지:</strong> ${remainingDays}일</p>
+        <p><strong>하루 공부 시간:</strong> ${formatTime(dailyMinutes)}</p>
+
+        <h3>날짜별 공부 계획</h3>
+    `;
+
+    // 시험일까지 날짜별 스케줄 생성
+    for (let day = 0; day <= remainingDays; day++) {
+        const currentDate = new Date(today);
+        currentDate.setDate(today.getDate() + day);
+
+        const daysLeft = remainingDays - day;
+
+        let dailySubjects = [...subjects];
+        let studyMinutes = dailyMinutes;
+        let message = "개념 학습과 문제 풀이";
+
+        // 시험 전날은 복습과 오답 정리 중심
+        if (daysLeft === 1) {
+            message = "핵심 개념 복습과 오답 정리";
+        } else if (daysLeft === 0) {
+            message = "가벼운 핵심 내용 복습";
+            studyMinutes = Math.round(dailyMinutes * 0.5);
+        } else if (daysLeft <= 3) {
+            message = "기출·유형 문제와 오답 복습";
         }
 
-        if (minutes === 0) {
-            timeText = "0분";
-        }
+        // 과목을 날짜마다 순환하여 배치
+        const shift = day % dailySubjects.length;
+
+        dailySubjects = dailySubjects
+            .slice(shift)
+            .concat(dailySubjects.slice(0, shift));
+
+        const subjectPlans = divideTime(
+            dailySubjects,
+            studyMinutes
+        );
 
         plan += `
-            <tr>
-                <td style="padding:10px;border-bottom:1px solid #ddd;">
-                    ${subject}
-                </td>
+            <div style="
+                border:1px solid #ddd;
+                border-radius:10px;
+                padding:15px;
+                margin:15px 0;
+                background:#f9faff;
+            ">
+                <h3>${formatDate(currentDate)}</h3>
+                <p><strong>D-${daysLeft}</strong></p>
+                <p>${message}</p>
 
-                <td style="padding:10px;border-bottom:1px solid #ddd;">
-                    ${timeText}
-                </td>
-            </tr>
+                <table style="
+                    width:100%;
+                    border-collapse:collapse;
+                    text-align:center;
+                ">
+                    <tr style="background:#4169e1;color:white;">
+                        <th style="padding:8px;">과목</th>
+                        <th style="padding:8px;">공부 시간</th>
+                    </tr>
         `;
-    });
+
+        subjectPlans.forEach(item => {
+            plan += `
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid #ddd;">
+                        ${escapeHTML(item.subject)}
+                    </td>
+                    <td style="padding:8px;border-bottom:1px solid #ddd;">
+                        ${formatTime(item.minutes)}
+                    </td>
+                </tr>
+            `;
+        });
+
+        plan += `
+                </table>
+            </div>
+        `;
+    }
 
     plan += `
-        </table>
-
         <p style="margin-top:20px;">
-            오늘의 계획을 하나씩 실천해 보세요!
+            계획은 참고용이며, 공부 진행 상황에 따라 조정해 보세요!
         </p>
     `;
 
-    // 7. 결과 화면에 표시하기
     result.innerHTML = plan;
 }
