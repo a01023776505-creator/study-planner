@@ -27,8 +27,8 @@ header p {
 }
 
 main {
-    width: 90%;
-    max-width: 900px;
+    width: 92%;
+    max-width: 1000px;
     margin: 30px auto;
 }
 
@@ -137,34 +137,111 @@ button:hover {
     background: #3156bd;
 }
 
-#result {
-    line-height: 1.7;
-}
-
-.plan-day {
-    border: 1px solid #e1e6ef;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 15px 0;
-    background: #fbfcff;
-}
-
-.plan-day h3 {
-    color: #3156bd;
-}
-
-.plan-item {
-    padding: 8px 0;
-    border-bottom: 1px solid #edf0f5;
-}
-
-.plan-item:last-child {
-    border-bottom: none;
-}
-
 .error-message {
     color: #d93025;
     font-weight: bold;
+}
+
+/* 주간 계획표 */
+.plan-summary {
+    background: #f3f6ff;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    line-height: 1.8;
+}
+
+.week-card {
+    border: 1px solid #dce4f5;
+    border-radius: 14px;
+    margin: 25px 0;
+    overflow: hidden;
+    background: white;
+}
+
+.week-header {
+    background: #4169e1;
+    color: white;
+    padding: 18px 20px;
+}
+
+.week-header h3 {
+    margin: 0 0 5px;
+    font-size: 21px;
+}
+
+.week-header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.week-content {
+    padding: 15px;
+}
+
+.day-card {
+    border: 1px solid #e7ebf2;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #fbfcff;
+}
+
+.day-card:last-child {
+    margin-bottom: 0;
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e7ebf2;
+    margin-bottom: 10px;
+}
+
+.day-header h4 {
+    margin: 0;
+    color: #3156bd;
+    font-size: 16px;
+}
+
+.day-total {
+    font-size: 13px;
+    color: #687386;
+}
+
+.study-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.study-item:last-child {
+    border-bottom: none;
+}
+
+.study-subject {
+    font-weight: bold;
+}
+
+.study-time {
+    color: #3156bd;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.exam-label {
+    display: inline-block;
+    margin-top: 5px;
+    color: #d93025;
+    font-size: 12px;
 }
 
 @media (max-width: 600px) {
@@ -178,5 +255,17 @@ button:hover {
 
     .date-row {
         grid-template-columns: 1fr;
+    }
+
+    .week-content {
+        padding: 10px;
+    }
+
+    .day-card {
+        padding: 12px;
+    }
+
+    .study-item {
+        align-items: flex-start;
     }
 }
