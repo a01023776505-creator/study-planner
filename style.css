@@ -1,137 +1,182 @@
 
-/* 기본 설정 */
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, "Malgun Gothic", sans-serif;
-    background-color: #f3f6fc;
-    color: #333333;
     margin: 0;
-    padding: 0;
+    font-family: Arial, "Noto Sans KR", sans-serif;
+    background: #f4f7fb;
+    color: #263238;
 }
 
-/* 상단 제목 */
 header {
-    background-color: #4169e1;
+    background: #4169e1;
     color: white;
     text-align: center;
     padding: 35px 20px;
 }
 
 header h1 {
+    margin: 0 0 10px;
     font-size: 32px;
-    margin-bottom: 10px;
 }
 
 header p {
-    font-size: 16px;
+    margin: 0;
 }
 
-/* 전체 화면 */
 main {
-    max-width: 800px;
+    width: 90%;
+    max-width: 900px;
     margin: 30px auto;
-    padding: 20px;
 }
 
-/* 입력 영역과 계획표 영역 */
 section {
-    background-color: white;
+    background: white;
     padding: 25px;
     margin-bottom: 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-/* 소제목 */
 h2 {
-    color: #4169e1;
+    color: #3156bd;
+    margin-top: 0;
+}
+
+h3 {
+    margin-bottom: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
+    gap: 8px;
 }
 
-/* 입력창 제목 */
-label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-/* 입력창과 선택창 */
-input[type="date"],
+input[type="text"],
 input[type="number"],
+input[type="date"],
 select {
     width: 100%;
     padding: 12px;
-    border: 1px solid #cccccc;
+    border: 1px solid #cbd3e1;
     border-radius: 8px;
     font-size: 15px;
-    background-color: white;
 }
 
-/* 과목 선택 체크박스 */
-input[type="checkbox"] {
-    margin-right: 8px;
-    accent-color: #4169e1;
+small {
+    color: #687386;
 }
 
-/* 체크박스가 있는 라벨 */
-label:has(input[type="checkbox"]) {
-    display: inline-block;
-    margin-right: 15px;
-    font-weight: normal;
-}
-
-/* 계획표 생성 버튼 */
-button {
-    width: 100%;
+.subject-group {
+    border: 1px solid #e1e6ef;
     padding: 15px;
-    margin-top: 25px;
-    background-color: #4169e1;
-    color: white;
-    border: none;
     border-radius: 10px;
-    font-size: 17px;
-    font-weight: bold;
+    margin: 15px 0;
+    background: #fbfcff;
+}
+
+.subject-group label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 6px 12px 6px 0;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-button:hover {
-    background-color: #3154bd;
+input[type="checkbox"] {
+    accent-color: #4169e1;
+    width: 16px;
+    height: 16px;
 }
 
-/* 계획표 결과 영역 */
-#result {
-    background-color: #f3f6fc;
+.date-section {
+    margin-top: 30px;
     padding: 20px;
+    background: #f3f6ff;
     border-radius: 10px;
-    min-height: 100px;
-    line-height: 1.8;
 }
 
-/* 하단 안내 */
-footer {
-    text-align: center;
-    padding: 20px;
-    color: #777777;
+.date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 15px;
+    margin: 12px 0;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+}
+
+.date-row label {
+    font-weight: bold;
+}
+
+.empty-message {
+    color: #687386;
     font-size: 14px;
 }
 
-/* 휴대전화 화면 */
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    background: #4169e1;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #3156bd;
+}
+
+#result {
+    line-height: 1.7;
+}
+
+.plan-day {
+    border: 1px solid #e1e6ef;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    background: #fbfcff;
+}
+
+.plan-day h3 {
+    color: #3156bd;
+}
+
+.plan-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.plan-item:last-child {
+    border-bottom: none;
+}
+
+.error-message {
+    color: #d93025;
+    font-weight: bold;
+}
+
 @media (max-width: 600px) {
     main {
-        padding: 12px;
-        margin: 15px auto;
+        width: 95%;
     }
 
     section {
         padding: 18px;
     }
 
-    header h1 {
-        font-size: 26px;
+    .date-row {
+        grid-template-columns: 1fr;
     }
 }
