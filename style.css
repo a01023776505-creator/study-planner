@@ -1,0 +1,137 @@
+
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, "Malgun Gothic", sans-serif;
+    background-color: #f3f6fc;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 상단 제목 */
+header {
+    background-color: #4169e1;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 16px;
+}
+
+/* 전체 화면 */
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* 입력 영역과 계획표 영역 */
+section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 소제목 */
+h2 {
+    color: #4169e1;
+    margin-bottom: 20px;
+}
+
+/* 입력창 제목 */
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* 입력창과 선택창 */
+input[type="date"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: white;
+}
+
+/* 과목 선택 체크박스 */
+input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #4169e1;
+}
+
+/* 체크박스가 있는 라벨 */
+label:has(input[type="checkbox"]) {
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: normal;
+}
+
+/* 계획표 생성 버튼 */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background-color: #4169e1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #3154bd;
+}
+
+/* 계획표 결과 영역 */
+#result {
+    background-color: #f3f6fc;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 100px;
+    line-height: 1.8;
+}
+
+/* 하단 안내 */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777777;
+    font-size: 14px;
+}
+
+/* 휴대전화 화면 */
+@media (max-width: 600px) {
+    main {
+        padding: 12px;
+        margin: 15px auto;
+    }
+
+    section {
+        padding: 18px;
+    }
+
+    header h1 {
+        font-size: 26px;
+    }
+}
