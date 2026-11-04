@@ -196,6 +196,57 @@ function createPlan() {
             계획은 참고용이며, 공부 진행 상황에 따라 조정해 보세요!
         </p>
     `;
+// 선택한 과목마다 시험 날짜 입력란 생성
+function updateSubjectExamDates() {
+    const checkboxes = document.querySelectorAll(
+        'input[name="subject"]:checked'
+    );
 
+    const container = document.getElementById("subjectExamDates");
+
+    if (!container) return;
+
+    const selectedSubjects = Array.from(checkboxes).map(
+        checkbox => checkbox.value
+    );
+
+    // 기존 날짜 입력값 저장
+    const previousDates = {};
+
+    container.querySelectorAll("input").forEach(input => {
+        previousDates[input.dataset.subject] = input.value;
+    });
+
+    container.innerHTML = "";
+
+    selectedSubjects.forEach(subject => {
+        const row = document.createElement("div");
+
+        row.style.margin = "10px 0";
+
+        const label = document.createElement("label");
+        label.textContent = subject + " 시험 날짜: ";
+
+        const input = document.createElement("input");
+        input.type = "date";
+        input.dataset.subject = subject;
+        input.required = true;
+
+        // 이미 입력한 날짜가 있다면 유지
+        input.value = previousDates[subject] || "";
+
+        label.appendChild(input);
+        row.appendChild(label);
+        container.appendChild(row);
+    });
+}
+
+// 과목 선택이 바뀔 때 날짜 입력란 갱신
+document.querySelectorAll('input[name="subject"]').forEach(checkbox => {
+    checkbox.addEventListener("change", updateSubjectExamDates);
+});
+
+// 처음 사이트를 열었을 때도 실행
+updateSubjectExamDates();
     result.innerHTML = plan;
 }
